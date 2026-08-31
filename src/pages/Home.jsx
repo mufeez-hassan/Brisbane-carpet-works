@@ -5,6 +5,7 @@ import ServiceCard from '../components/ServiceCard';
 import ProcessSteps from '../components/ProcessSteps';
 import TestimonialCard from '../components/TestimonialCard';
 import CTASection from '../components/CTASection';
+import BeforeAfterShowcase from '../components/BeforeAfterShowcase';
 import { Award, Shield, DollarSign, Home, Scissors, Droplet, Wrench, Sparkles, PawPrint, KeyRound } from 'lucide-react';
 
 const HomePage = () => {
@@ -162,6 +163,9 @@ const HomePage = () => {
           <ProcessSteps />
         </div>
       </section>
+
+      {/* Before/After Showcase Section */}
+      <BeforeAfterShowcase />
 
       {/* Bond Section */}
       <section className="py-16 lg:py-20" style={{ backgroundColor: '#EEF4FF' }}>
