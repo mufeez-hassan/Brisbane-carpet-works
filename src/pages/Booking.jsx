@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PageHero from '../components/PageHero';
-import { Send, Upload } from 'lucide-react';
+import { Send, Upload, CheckCircle, XCircle } from 'lucide-react';
+import { sendEmail } from '../services/emailService';
 
 const Booking = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const Booking = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,15 +26,32 @@ const Booking = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
     
-    console.log('Booking submitted:', formData);
+    // Prepare email data
+    const emailData = {
+      to_email: 'Brisbanecarpetworks@gmail.com',
+      from_name: formData.fullName,
+      from_email: formData.email,
+      phone: formData.phone,
+      suburb: formData.suburb,
+      service: formData.service,
+      preferred_date: formData.preferredDate,
+      preferred_time: formData.preferredTime,
+      carpet_issue: formData.carpetIssue,
+      additional_details: formData.additionalDetails,
+      subject: `New Booking Request from ${formData.fullName}`
+    };
     
-    setTimeout(() => {
-      alert('Thank you for your booking request! We will contact you soon to confirm your appointment.');
-      setIsSubmitting(false);
+    const result = await sendEmail(emailData);
+    
+    setIsSubmitting(false);
+    
+    if (result.success) {
+      setSubmitStatus('success');
       setFormData({
         fullName: '',
         phone: '',
@@ -44,7 +63,11 @@ const Booking = () => {
         carpetIssue: '',
         additionalDetails: ''
       });
-    }, 1000);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } else {
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const services = [
@@ -249,6 +272,27 @@ const Booking = () => {
                 {isSubmitting ? 'Sending Request...' : 'REQUEST A QUOTE'}
                 <Send className="ml-2 w-5 h-5" />
               </button>
+
+              {/* Success Message */}
+              {submitStatus === 'success' && (
+                <div className="flex items-center gap-2 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <p className="text-green-700 text-sm">
+                    Thank you for your booking request! We will contact you soon to confirm your appointment.
+                  </p>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {submitStatus === 'error' && (
+                <div className="flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                  <p className="text-red-700 text-sm">
+                    Sorry, something went wrong. Please try again or call us directly at{' '}
+                    <a href="tel:0469950276" className="font-semibold underline">0469 950 276</a>
+                  </p>
+                </div>
+              )}
 
               <p className="text-sm text-gray-500 text-center">
                 By submitting this form, you agree to be contacted regarding your carpet repair enquiry.

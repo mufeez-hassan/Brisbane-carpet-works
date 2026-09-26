@@ -12,15 +12,21 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
  */
 export const sendEmail = async (formData) => {
   try {
+    // Log for debugging
+    console.log('Sending email with data:', formData);
+    
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       formData,
       EMAILJS_PUBLIC_KEY
     );
+    
+    console.log('Email sent successfully:', response);
     return { success: true, response };
   } catch (error) {
     console.error('Email sending failed:', error);
+    console.error('Error details:', error.text || error.message);
     return { success: false, error };
   }
 };

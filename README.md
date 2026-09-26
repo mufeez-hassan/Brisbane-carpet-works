@@ -1,225 +1,161 @@
-# Brisbane Carpet Works - Professional Carpet Repair Website
+# Brisbane Carpet Works Website
 
-A complete, production-ready carpet repair business website built with React, Vite, and Tailwind CSS. This website is specifically designed for carpet repair businesses that specialize in helping renters prepare their properties for final inspections.
+Professional carpet repair and restoration services website for Brisbane Carpet Works.
 
-## 🎯 Project Overview
+## 🌐 Live Website Features
 
-This website is inspired by professional carpet repair service websites with a focus on:
-- **Rental property repairs** - Helping renters get their bond back
-- **Professional service presentation** - Trust-building and conversion optimization
-- **Multiple service pages** - Comprehensive information about carpet repair services
-- **Lead generation** - Quote forms with photo upload functionality
-- **SEO optimization** - Location pages and service-specific content
+- **14 Complete Pages:** Home, Services (6 detail pages), About, Projects, Pricing, Reviews, FAQs, Booking, Gallery, Blog, Contact
+- **Fully Responsive:** Mobile, tablet, and desktop optimized
+- **Professional Design:** Based on Hygienex cleaning services template
+- **Working Contact Forms:** Email integration with EmailJS
+- **SEO Optimized:** Proper meta tags and semantic HTML
 
-## 🚀 Features
+## 🚀 Quick Start
 
-### Pages Implemented
-- ✅ **Home** - Hero section, services overview, before/after gallery, process steps, statistics, FAQs
-- ✅ **Services** - Complete services grid with individual service detail pages
-- ✅ **About** - Company story, values, team, service areas
-- ✅ **FAQs** - Searchable/filterable accordion FAQ system
-- ✅ **Contact** - Contact form with business information
-- ✅ **Quote** - Multi-step quote form with image upload capability
-- ✅ **Service Areas** - Location grid with individual location landing pages
-- ✅ **Service Guide** - Comprehensive guide covering repair processes
-- ✅ **Resources** - Article/blog listing page
-
-### Key Components
-- Responsive Header with mobile menu
-- Comprehensive Footer with sitemap
-- Mobile Action Bar (sticky call/quote buttons)
-- Reusable service cards
-- FAQ accordion component
-- Process steps visualization
-- Statistics section
-- CTA sections
-- Before/after galleries
-
-### Design System
-- Custom CSS variables for easy branding changes
-- Professional color palette (charcoal, amber, neutrals)
-- Responsive typography
-- Accessible focus states
-- Smooth animations with reduced-motion support
-- Card-based layouts
-- Button variants (primary, secondary, outline)
-
-## 🛠️ Tech Stack
-
-- **React 19.2.8** - UI framework
-- **Vite 8.2.0** - Build tool and dev server
-- **React Router DOM 7+** - Client-side routing
-- **Tailwind CSS 4.3.3** - Utility-first CSS framework
-- **OxLint 1.75** - Fast JavaScript linter
-
-## 📦 Installation
+### Installation
 
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start development server
+### Development Server
+
+```bash
 npm run dev
+```
 
-# Build for production
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Build for Production
+
+```bash
 npm run build
+```
 
-# Preview production build
+### Preview Production Build
+
+```bash
 npm run preview
-
-# Run linter
-npm run lint
 ```
 
-## 🏗️ Project Structure
+## 📧 Email Setup (IMPORTANT)
 
-```
-src/
-├── components/          # Reusable UI components
-│   ├── Header.jsx
-│   ├── Footer.jsx
-│   ├── Hero.jsx
-│   ├── ServiceCard.jsx
-│   ├── FAQAccordion.jsx
-│   ├── CTASection.jsx
-│   ├── TrustStrip.jsx
-│   ├── ProcessSteps.jsx
-│   ├── WhyChooseUs.jsx
-│   ├── StatsSection.jsx
-│   └── MobileActionBar.jsx
-│
-├── pages/              # Route pages
-│   ├── Home.jsx
-│   ├── Services.jsx
-│   ├── ServiceDetail.jsx
-│   ├── About.jsx
-│   ├── FAQs.jsx
-│   ├── Contact.jsx
-│   ├── Quote.jsx
-│   ├── ServiceAreas.jsx
-│   ├── ServiceGuide.jsx
-│   ├── Resources.jsx
-│   └── LocationPage.jsx
-│
-├── data/               # Data files
-│   ├── services.js     # Service definitions
-│   ├── faqs.js         # FAQ data
-│   └── config.js       # Business configuration
-│
-├── App.jsx             # Main app with routing
-├── main.jsx            # React entry point
-└── index.css           # Global styles & design system
+This website uses EmailJS to send form submissions to **Brisbanecarpetworks@gmail.com**
+
+### Setup Steps:
+
+1. Create free account at [EmailJS.com](https://www.emailjs.com/)
+2. Connect Gmail account: **Brisbanecarpetworks@gmail.com**
+3. Create email template
+4. Copy Service ID, Template ID, and Public Key
+5. Update `.env` file with your credentials
+
+**See detailed instructions in:** `EMAILJS_SETUP.md`
+
+### Environment Variables
+
+Create a `.env` file:
+
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-## 🎨 Customization
+## 📱 Contact Information
 
-### Business Information
-Edit `src/data/config.js` to update:
-- Business name, tagline, contact details
-- Phone numbers, email, address
-- Opening hours
-- Service areas
-- Statistics (repairs completed, years experience, etc.)
-- Trust points and "Why Choose Us" content
+- **Email:** Brisbanecarpetworks@gmail.com
+- **Phone 1:** 0469 950 276
+- **Phone 2:** 0452 318 234
+- **Location:** Brisbane, Queensland
+
+## 🎨 Tech Stack
+
+- **React 19** - UI framework
+- **Vite 8** - Build tool
+- **Tailwind CSS 4** - Styling
+- **React Router 7** - Routing
+- **Lucide React** - Icons
+- **EmailJS** - Email service
+
+## 📂 Project Structure
+
+```
+carpet/
+├── src/
+│   ├── components/     # Reusable components
+│   ├── pages/          # Page components
+│   ├── services/       # Email service
+│   ├── assets/         # Images
+│   ├── App.jsx         # Main app
+│   ├── main.jsx        # Entry point
+│   └── index.css       # Global styles
+├── public/             # Static files
+├── .env                # Environment variables (not in git)
+├── .env.example        # Example env file
+└── package.json        # Dependencies
+```
+
+## 🎯 Key Features
+
+### Forms
+- Hero Quote Form (Homepage)
+- Booking Form (/booking)
+- Contact Form (/contact)
+
+All forms send emails to: **Brisbanecarpetworks@gmail.com**
 
 ### Services
-Edit `src/data/services.js` to:
-- Add/remove/modify services
-- Update service descriptions and features
-- Change service icons
-- Modify repair processes
+- Carpet Patching
+- Carpet Damage Repair
+- Pet Damage Repair
+- Stain Removal
+- Carpet Stretching
+- Rental/Bond Carpet Repairs
 
-### FAQs
-Edit `src/data/faqs.js` to:
-- Add new frequently asked questions
-- Update answers
-- Organize by categories
+### Pages
+- `/` - Home
+- `/services` - Services overview
+- `/services/:slug` - Service details
+- `/about` - About page
+- `/projects` - Portfolio
+- `/pricing` - Pricing
+- `/reviews` - Customer reviews
+- `/faqs` - FAQ page
+- `/booking` - Booking form
+- `/gallery` - Image gallery
+- `/blog` - Blog listing
+- `/blog/:slug` - Blog posts
+- `/contact` - Contact page
 
-### Branding/Colors
-Edit `src/index.css` CSS variables:
-```css
-:root {
-  --color-primary: #1a1a1a;        /* Main dark color */
-  --color-secondary: #d4a574;      /* Secondary warm color */
-  --color-accent: #c17a3e;         /* Accent/CTA color */
-  /* ... more variables */
-}
-```
+## 🚢 Deployment
 
-## 📱 Responsive Design
+### Vercel (Recommended)
 
-The website is fully responsive and tested at multiple breakpoints:
-- Mobile: 320px - 767px
-- Tablet: 768px - 1023px
-- Desktop: 1024px+
+1. Push code to GitHub
+2. Import project in Vercel
+3. Add environment variables
+4. Deploy
 
-Mobile-specific features:
-- Hamburger menu
-- Sticky mobile action bar (Call + Quote)
-- Touch-friendly buttons
-- Optimized layouts
+### Netlify
 
-## ♿ Accessibility
+1. Connect GitHub repository
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Add environment variables
+5. Deploy
 
-- Semantic HTML structure
-- ARIA labels where appropriate
-- Keyboard navigation support
-- Focus visible states
-- Sufficient color contrast
-- Alt text for images
-- Reduced motion support
+### Environment Variables for Deployment
 
-## 🔍 SEO Features
+Add these in your hosting platform:
+- `VITE_EMAILJS_SERVICE_ID`
+- `VITE_EMAILJS_TEMPLATE_ID`
+- `VITE_EMAILJS_PUBLIC_KEY`
 
-- Unique meta titles and descriptions
-- Open Graph tags
-- Semantic HTML
-- Proper heading hierarchy (H1-H6)
-- Internal linking
-- Location-based landing pages
-- Service-specific pages
-- Clean URLs
+## 📝 License
 
-## 📞 Contact Information
-
-Current placeholder contact details (update in `src/data/config.js`):
-- **Phone:** 0469 950 276
-- **Alt Phone:** 0452 318 234
-- **Email:** Brisbanecarpetworks@gmail.com
-- **Service Area:** Greater Brisbane & Surrounding Areas
-
-## 🚦 Next Steps
-
-### Before Launch:
-1. Replace placeholder contact information with actual business details
-2. Add real before/after images
-3. Update service area suburbs with actual coverage
-4. Add real testimonials (if available)
-5. Configure form submission backend
-6. Add Google Analytics
-7. Set up real image uploads for quote form
-8. Add schema markup for LocalBusiness
-9. Create actual blog articles for Resources section
-10. Take professional photos of repairs
-
-### Optional Enhancements:
-- Add blog/CMS integration
-- Implement actual before/after image sliders
-- Add customer review system
-- Integrate booking system
-- Add live chat widget
-- Set up email marketing integration
-- Add Google Maps integration
-- Implement image optimization
-
-## 📄 License
-
-This is a custom-built website for Brisbane Carpet Works.
+© Brisbane Carpet Works. All Rights Reserved.
 
 ## 🤝 Support
 
-For questions or support, contact via the information provided in the Contact page.
-
----
-
-**Built with ❤️ using React, Vite, and Tailwind CSS**
+For technical support or questions about the website, refer to the setup documentation or contact the developer.

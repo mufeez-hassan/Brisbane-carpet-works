@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PageHero from '../components/PageHero';
-import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle, XCircle } from 'lucide-react';
+import { sendEmail } from '../services/emailService';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,15 +23,37 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
     
-    console.log('Contact form submitted:', formData);
+    // Prepare email data - Send both variable formats for EmailJS compatibility
+    const emailData = {
+      // Original EmailJS default variables
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      
+      // Custom template variables (matching your HTML template)
+      from_name: formData.name,
+      from_email: formData.email,
+      phone: formData.phone,
+      service: formData.service || 'General Enquiry',
+      suburb: formData.suburb || 'Not specified',
+      preferred_date: 'N/A',
+      
+      // Additional fields
+      to_email: 'Brisbanecarpetworks@gmail.com',
+      subject: `New Contact Message from ${formData.name}`
+    };
     
-    setTimeout(() => {
-      alert('Thank you for contacting us! We will respond to your enquiry soon.');
-      setIsSubmitting(false);
+    const result = await sendEmail(emailData);
+    
+    setIsSubmitting(false);
+    
+    if (result.success) {
+      setSubmitStatus('success');
       setFormData({
         name: '',
         phone: '',
@@ -38,7 +62,11 @@ const Contact = () => {
         suburb: '',
         message: ''
       });
-    }, 1000);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } else {
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const services = [
@@ -240,6 +268,27 @@ const Contact = () => {
                     {isSubmitting ? 'Sending...' : 'SEND MESSAGE'}
                     <Send className="ml-2 w-5 h-5" />
                   </button>
+
+                  {/* Success Message */}
+                  {submitStatus === 'success' && (
+                    <div className="flex items-center gap-2 p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      <p className="text-green-700 text-sm">
+                        Thank you for contacting us! We will respond to your enquiry soon.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {submitStatus === 'error' && (
+                    <div className="flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-lg">
+                      <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                      <p className="text-red-700 text-sm">
+                        Sorry, something went wrong. Please try again or call us directly at{' '}
+                        <a href="tel:0469950276" className="font-semibold underline">0469 950 276</a>
+                      </p>
+                    </div>
+                  )}
                 </form>
               </div>
             </div>
