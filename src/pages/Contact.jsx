@@ -28,8 +28,8 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     
-    // Prepare email data - Send both variable formats for EmailJS compatibility
-    const emailData = {
+    // Prepare email data to business owner
+    const businessEmailData = {
       // Original EmailJS default variables
       name: formData.name,
       email: formData.email,
@@ -48,7 +48,27 @@ const Contact = () => {
       subject: `New Contact Message from ${formData.name}`
     };
     
-    const result = await sendEmail(emailData);
+    // Prepare confirmation email to customer
+    const customerEmailData = {
+      name: formData.name,
+      email: formData.email,
+      from_name: formData.name,
+      from_email: formData.email,
+      to_email: formData.email,
+      phone: formData.phone,
+      service: formData.service || 'General Enquiry',
+      suburb: formData.suburb || 'Not specified',
+      preferred_date: 'N/A',
+      message: formData.message,
+      subject: 'Thank You - Brisbane Carpet Works Contact Confirmation'
+    };
+    
+    const result = await sendEmail(businessEmailData);
+    
+    // Send customer confirmation if business email successful
+    if (result.success) {
+      await sendEmail(customerEmailData, 'customer');
+    }
     
     setIsSubmitting(false);
     

@@ -28,8 +28,8 @@ const QuoteForm = ({ variant = 'hero' }) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     
-    // Prepare email data - Send both variable formats for EmailJS compatibility
-    const emailData = {
+    // Prepare email data to business owner
+    const businessEmailData = {
       // Original EmailJS default variables
       name: formData.name,
       email: formData.email,
@@ -48,8 +48,29 @@ const QuoteForm = ({ variant = 'hero' }) => {
       subject: `New Quote Request from ${formData.name}`
     };
     
-    // Send email using EmailJS
-    const result = await sendEmail(emailData);
+    // Prepare confirmation email data to customer
+    const customerEmailData = {
+      name: formData.name,
+      email: formData.email,
+      from_name: formData.name,
+      from_email: formData.email,
+      to_email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      suburb: formData.suburb,
+      preferred_date: formData.preferredDate || 'Not specified',
+      message: formData.message || 'No additional message',
+      subject: 'Thank You - Brisbane Carpet Works Quote Request Received'
+    };
+    
+    // Send email to business owner
+    const result = await sendEmail(businessEmailData);
+    
+    // If business email successful, send confirmation to customer
+    if (result.success) {
+      // Send customer confirmation email (using customer template)
+      await sendEmail(customerEmailData, 'customer');
+    }
     
     setIsSubmitting(false);
     
